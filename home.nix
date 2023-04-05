@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
-
+let 
+  nixfiles_path = /Users/user/Nix/nixfiles;
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -17,10 +19,7 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
+  home.packages = with pkgs; [
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -35,8 +34,12 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
-    pkgs.htop
-    pkgs.fortune
+    du-dust
+    fortune
+    htop
+    jq
+    tmux
+    tree
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -66,6 +69,11 @@
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
     EDITOR = "nvim";
+  };
+
+  programs.alacritty = {
+    enable = true;
+    settings = import (nixfiles_path + "/hm/alacritty.nix");
   };
 
   # Let Home Manager install and manage itself.
