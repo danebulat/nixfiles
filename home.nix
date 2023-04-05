@@ -35,10 +35,8 @@ in
     # '')
 
     du-dust
-    fortune
     htop
     jq
-    tmux
     tree
   ];
 
@@ -74,6 +72,22 @@ in
   programs.alacritty = {
     enable = true;
     settings = import (nixfiles_path + "/hm/alacritty.nix");
+  };
+
+  programs.tmux = {
+    enable = true;
+    # extraConfig = ''
+    #   set -g default-terminal "xterm-256color"
+    # '';
+    historyLimit = 2000;
+    # Prefer vi over emacs
+    keyMode = "vi";
+    # Enable mouse support
+    mouse = true;
+    # Automatically spawn a session if trying to attach and none are running
+    newSession = true;
+    # Set TERM variable to avoid wrong backspace behavior
+    terminal = "xterm-256color";
   };
 
   # Let Home Manager install and manage itself.
