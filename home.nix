@@ -76,9 +76,15 @@ in
 
   programs.tmux = {
     enable = true;
-    # extraConfig = ''
-    #   set -g default-terminal "xterm-256color"
-    # '';
+    baseIndex = 1;
+    clock24 = true;
+    extraConfig = ''
+      # Vim style pane switching
+      bind h select-pane -L
+      bind j select-pane -D
+      bind k select-pane -U
+      bind l select-pane -R
+    '';
     historyLimit = 2000;
     # Prefer vi over emacs
     keyMode = "vi";
@@ -88,6 +94,8 @@ in
     newSession = true;
     # Set TERM variable to avoid wrong backspace behavior
     terminal = "xterm-256color";
+    # Set prefix key 
+    prefix = "C-x";
   };
 
   # Let Home Manager install and manage itself.

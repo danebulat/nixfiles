@@ -54,7 +54,7 @@
     # normal (roman) font face 
     normal = {
       family = "FiraCode Nerd Font";
-      style = "Regular";
+      style = "Light";
     };
 
     # bold font face
