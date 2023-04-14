@@ -73,7 +73,7 @@ in
 
   programs.alacritty = {
     enable = true;
-    settings = import ./hm/alacritty.nix;
+    settings = import ../modules/alacritty.nix;
   };
 
   programs.tmux = {

@@ -19,30 +19,14 @@
       };
 
       lib = nixpkgs.lib;
+      user = "dane";
     in {
-      nixosConfigurations = {
-
-	# System configuration
-	# sudo nixos-rebuild switch --flake .<hash>dane
-
-        # To update a flake:
-        # nix flake update #--recreate-lock-file
-
-        dane = lib.nixosSystem {
-          inherit system;
-	  modules = [ 
-	    ./configuration.nix
-            home-manager.nixosModules.home-manager {
-              home-manager.useGlobalPkgs = true;
-	      home-manager.useUserPackages = true;
-	      home-manager.users.dane = {
-                imports = [ ./home.nix ];
-	      };
-	    }
-	  ];
-	};
-      };
-
+      nixosConfigurations = (
+        import ./hosts {
+          inherit nixpkgs;
+	  inherit user home-manager;
+	}
+      );
 
       # Sample home-manager configuration
       # nix build .#hmConfig.dane.activationsPackage
