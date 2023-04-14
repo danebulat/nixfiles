@@ -102,6 +102,31 @@ in
   };
 
   # --------------------------------------------------
+  # Neovim
+  # --------------------------------------------------
+
+  programs.neovim = {
+    enable        = true;
+    defaultEditor = true;
+    withNodeJs    = true;
+  };
+
+  home.file.".config/nvim/init.lua" = {
+    source = ../dotfiles/neovim/init.lua;
+  };
+
+  home.file.".config/nvim/coc-settings.json" = {
+    source = ../dotfiles/neovim/coc-settings.json;
+  };
+
+  home.file.".config/nvim/opt/tree-sitter-haskell".source = pkgs.fetchFromGitHub {
+    owner  = "tree-sitter";
+    repo   = "tree-sitter-haskell";
+    rev    = "98fc7f5";
+    sha256 = "BDvzmFIGABtkWEUbi74o3vPLsiwNWsQDNura867vYpU=";
+  };
+
+  # --------------------------------------------------
   # Dotfiles
   # --------------------------------------------------
 

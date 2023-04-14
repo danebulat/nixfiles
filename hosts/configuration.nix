@@ -131,6 +131,7 @@ in
 
     # Packages installed in system profile
     systemPackages = with pkgs; [
+      gcc 
       git
       neovim 
       killall
