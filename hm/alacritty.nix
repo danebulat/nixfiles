@@ -54,7 +54,7 @@
     # normal (roman) font face 
     normal = {
       family = "FiraCode Nerd Font";
-      style = "Light";
+      style = "Regular";
     };
 
     # bold font face
@@ -76,7 +76,7 @@
     };
 
     # point size
-    size = 13.0;
+    size = 11.0;
   };
 
   # color settings (Tomorrow Night)
