@@ -28,13 +28,24 @@ in
     blueman
     du-dust
     flameshot
+    galculator
     google-chrome
+    hexchat
     htop
     httpie
     jq
     libreoffice
+    nomacs
     pcmanfm
     tree
+
+    # System tray + Desktop
+    cbatticon
+    nitrogen
+    stalonetray
+    volumeicon
+    xfce.xfce4-power-manager
+    xfce.xfce4-notifyd
   ];
 
   home.pointerCursor = {
@@ -46,6 +57,27 @@ in
   xsession = {
     enable = true;
     numlock.enable = true;
+
+    # Start xmonad
+    # windowManager.command = "${pkgs.xmonad-with-packages}/bin/xmonad";
+
+    # Extra commands to run during initialisation
+    initExtra = ''
+      # Set screen resolution
+      xrandr --output Virtual1 --mode 1440x900
+
+      # Set background image with feh
+      feh --bg-scale ~/Pictures/Wallpapers/nix-wallpaper-gear.png &
+
+      # Set up stalonetray 
+      stalonetray &
+      volumeicon &
+      cbatticon &
+      nm-applet &
+
+      # Start xmobar 
+      xmobar ~/.config/xmobar/xmobarrc &
+    '';
   };
 
   gtk = {
@@ -127,6 +159,32 @@ in
   };
 
   # --------------------------------------------------
+  # Xmonad 
+  # --------------------------------------------------
+
+  programs.xmobar.enable = true;
+
+  # xmonad config
+  home.file.".config/xmonad/xmonad.hs" = {
+    source = ../dotfiles/xmonad/xmonad.hs;
+  };
+
+  # xmobar config
+  home.file.".config/xmobar/xmobarrc" = {
+    source = ../dotfiles/xmobar/xmobarrc;
+  };
+
+  # stalonetray config 
+  home.file.".stalonetrayrc" = {
+    source = ../dotfiles/stalonetray/stalonetrayrc;
+  };
+
+  # Copy wallpaper to ~/Pictures/Wallpapers
+  home.file."Pictures/Wallpapers/nix-wallpaper-gear.png" = {
+    source = ../wallpapers/nix-wallpaper-gear.png;
+  };
+
+  # --------------------------------------------------
   # Dotfiles
   # --------------------------------------------------
 
@@ -143,11 +201,11 @@ in
   #  executable = true;
   # };
 
-  #home.file = {
-  #  ".config/alacritty/alacritty.yml".text = ''
-  #    {"font": {"bold":{"style":"Bold"}}}
-  #  '';
-  #};
+  # home.file = {
+  #   ".config/alacritty/alacritty.yml".text = ''
+  #     {"font": {"bold":{"style":"Bold"}}}
+  #   '';
+  # };
 
   # --------------------------------------------------
   # Services 
@@ -156,4 +214,11 @@ in
   services.dunst = {
     enable = true;
   };
+
+  services.picom.enable = true;
+
+  # home.file.".config/picom/picom.conf" = {
+  #   source = ../dotfiles/picom/picom.conf;
+  # };
+
 }

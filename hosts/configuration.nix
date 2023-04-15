@@ -27,7 +27,7 @@ in
     # Define one which hard drive you want to install Grub.
     # device = "/dev/sda"; # or "nodev" for efi only
 
-    configurationLimit = 5;
+    configurationLimit = 10;
   };
 
   boot.loader.timeout = 10;
@@ -63,12 +63,19 @@ in
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the XFCE Desktop Environment.
+  # Enable LightDM.
   services.xserver.displayManager.lightdm.enable = true;
-  # services.xserver.displayManager.defaultSession = "xfce+bspwm";
-  # services.xserver.displayManager.defaultSession = "none+bspwm";
-  services.xserver.displayManager.defaultSession = "xfce";
+
+  # Enable the XFCE Desktop Environment.
   services.xserver.desktopManager.xfce.enable = true;
+
+  # Enable the Xmonad window manager.
+  services.xserver.windowManager.xmonad.enable = true;
+  services.xserver.windowManager.xmonad.enableContribAndExtras = true;
+
+  # "xfce+bspwm";
+  # "none+bspwm";
+  services.xserver.displayManager.defaultSession = "xfce";
 
   # Configure keymap in X11
   services.xserver = {
