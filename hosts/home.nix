@@ -41,7 +41,9 @@ in
 
     # System tray + Desktop
     cbatticon
+    dconf
     dmenu
+    networkmanagerapplet  # nm-applet nm-connection-editor
     nitrogen
     stalonetray
     volumeicon

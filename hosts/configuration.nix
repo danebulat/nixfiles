@@ -67,7 +67,7 @@ in
   services.xserver.displayManager.lightdm.enable = true;
 
   # Enable the XFCE Desktop Environment.
-  services.xserver.desktopManager.xfce.enable = true;
+  # services.xserver.desktopManager.xfce.enable = true;
 
   # Enable the Xmonad window manager.
   services.xserver.windowManager.xmonad.enable = true;
@@ -75,7 +75,7 @@ in
 
   # "xfce+bspwm";
   # "none+bspwm";
-  services.xserver.displayManager.defaultSession = "xfce";
+  services.xserver.displayManager.defaultSession = "none+xmonad";
 
   # Configure keymap in X11
   services.xserver = {
@@ -115,11 +115,22 @@ in
     description = "dane";
     extraGroups = [ "wheel" "video" "audio" "camera" "networkmanager" ];
     packages = with pkgs; [
+
       # Packages not available in Home Manager 
       # can be added here
       discord
       firefox
       lxappearance
+
+      # Global Haskell 
+      # cabal-install
+      # haskell.compiler.ghc925
+      # (haskell-language-server.override { 
+      #  supportedGhcVersions = [ "925" ];
+      # })
+
+      # Global NodeJS
+      nodejs
     ];
     # initialPassword = "password";
   };
