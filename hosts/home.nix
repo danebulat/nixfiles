@@ -248,14 +248,12 @@ in
   # Services 
   # --------------------------------------------------
 
-  services.dunst = {
-    enable = true;
+  services = {
+    dunst = {
+      enable = true;
+      configFile = ../dotfiles/dunst/dunstrc;
+    };
+
+    picom.enable = true;
   };
-
-  services.picom.enable = true;
-
-  # home.file.".config/picom/picom.conf" = {
-  #   source = ../dotfiles/picom/picom.conf;
-  # };
-
 }
