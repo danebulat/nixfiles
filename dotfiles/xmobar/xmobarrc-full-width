@@ -2,7 +2,7 @@ Config { overrideRedirect = False
        , font        = "xft:FiraCode Nerd Font-10"
        , bgColor     = "#141414"
        , fgColor     = "#c5c8c6"
-       , position    = BottomSize L 96 28 
+       , position    = BottomSize L 100 28 
        , allDesktops = True
        , persistent  = True
        , commands = [ Run Weather "EGPF"
@@ -32,5 +32,5 @@ Config { overrideRedirect = False
                     ]
        , sepChar  = "%"
        , alignSep = "}{"
-       , template = " %XMonadLog% }{ %alsa:default:Master% | %cpu% | %memory% * %swap% | %EGPF% | %date%           "
+       , template = " %XMonadLog% }{ %alsa:default:Master% | %cpu% | %memory% * %swap% | %EGPF% | %date% "
        }

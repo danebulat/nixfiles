@@ -122,7 +122,7 @@ main = xmonad
        toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
 
 myConfig = def
-     { modMask            = mod1Mask  -- Rebind Mod to the Super key
+     { modMask            = mod4Mask  -- Rebind Mod to the Super key
      , terminal           = myTerminal
      , borderWidth        = myBorderWidth
      , normalBorderColor  = myNormalBorderColor

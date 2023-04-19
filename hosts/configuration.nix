@@ -14,23 +14,32 @@ in
     ];
 
   # Bootloader.
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/sda";
+  boot = {
+    # Get latest kernel
+    kernelPackages = pkgs.linuxPackages_latest; 
 
-    # Dual booting made easy
-    useOSProber = true;
+    loader = {
+      timeout = 10;
 
-    # efiSupport = true;
-    # efiInstallAsRemovable = true;
-    # efi.efiSysMountPoint = "/boot/efi";
-    # Define one which hard drive you want to install Grub.
-    # device = "/dev/sda"; # or "nodev" for efi only
+      efi = {
+        canTouchEfiVariables = true;
 
-    configurationLimit = 10;
+        # Not set to prevent boot loader error
+        # Run nixos-install to update bootloader settings
+        #efiSysMountPoint = "/boot/eft";
+      };
+      grub = {
+        enable = true;
+        version = 2;
+        devices = ["nodev"];
+        efiSupport = true;
+        useOSProber = true;
+        
+        # Show up to 20 generations
+        configurationLimit = 20;
+      };
+    }; 
   };
-
-  boot.loader.timeout = 10;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -171,11 +180,12 @@ in
     })
   ];
 
-  system.autoUpgrade = {
-    enable  = true;
-    channel = "https://nixos.org/channels/nixos-unstable";
-    dates   = "daily";
-  };
+  # Not needed with flakes
+  #system.autoUpgrade = {
+  #  enable  = true;
+  #  channel = "https://nixos.org/channels/nixos-unstable";
+  #  dates   = "daily";
+  #};
 
   nix = {
     settings.auto-optimise-store = true;

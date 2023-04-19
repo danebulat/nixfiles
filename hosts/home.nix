@@ -67,19 +67,21 @@ in
     # Extra commands to run during initialisation
     initExtra = ''
       # Set screen resolution
-      xrandr --output Virtual1 --mode 1440x900
+      xrandr --output HDMI-2 --mode 1920x1080
+      xrandr --output eDP-1 --mode 1920x1080 --right-of HDMI-2
 
       # Set background image with feh
       feh --bg-scale ~/Pictures/Wallpapers/nix-wallpaper-gear.png &
 
-      # Set up stalonetray 
+      # Start stalonetray
       stalonetray &
       volumeicon &
       cbatticon &
       nm-applet &
-
+      
       # Start xmobar 
-      xmobar ~/.config/xmobar/.xmobarrc &
+      xmobar -x 0 ~/.config/xmobar/.xmobarrc &
+      xmobar -x 1 ~/nixfiles/dotfiles/xmobar/xmobarrc-full-width &
     '';
   };
 
@@ -172,7 +174,7 @@ in
        , font        = "xft:FiraCode Nerd Font-10"
        , bgColor     = "#141414"
        , fgColor     = "#c5c8c6"
-       , position    = BottomSize L 93 28 
+       , position    = BottomSize L 95 28 
        , allDesktops = True
        , persistent  = True
        , commands = [ Run Weather "EGPF"

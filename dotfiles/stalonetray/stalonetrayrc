@@ -9,8 +9,8 @@ grow_gravity NE
 icon_gravity NE
 icon_size 28 
 sticky true
-#window_strut none
-window_type dock
-window_layer bottom
+window_strut top 
+window_type desktop
+window_layer top 
 #no_shrink false
 skip_taskbar true
