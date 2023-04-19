@@ -26,7 +26,10 @@ in
 
     # Apps
     blueman
+    brave
+    cinnamon.nemo
     du-dust
+    firefox
     flameshot
     galculator
     google-chrome
@@ -38,6 +41,10 @@ in
     nomacs
     pcmanfm
     tree
+    xfce.mousepad
+
+    # Development
+    nodejs
 
     # System tray + Desktop
     cbatticon
@@ -49,6 +56,11 @@ in
     volumeicon
     xfce.xfce4-power-manager
     xfce.xfce4-notifyd
+
+    # Utilities
+    bashmount
+    lxappearance
+    trash-cli
   ];
 
   home.pointerCursor = {
@@ -77,7 +89,7 @@ in
       stalonetray &
       volumeicon &
       cbatticon &
-      nm-applet &
+      #nm-applet &
       
       # Start xmobar 
       xmobar -x 0 ~/.config/xmobar/.xmobarrc &
@@ -156,12 +168,14 @@ in
     source = ../dotfiles/neovim/coc-settings.json;
   };
 
-  home.file.".config/nvim/opt/tree-sitter-haskell".source = pkgs.fetchFromGitHub {
-    owner  = "tree-sitter";
-    repo   = "tree-sitter-haskell";
-    rev    = "98fc7f5";
-    sha256 = "BDvzmFIGABtkWEUbi74o3vPLsiwNWsQDNura867vYpU=";
-  };
+  # Doesn't work, needs to be cloned directly in $HOME/.config/nvim/opt 
+  # so filesystem can be written.
+  # home.file.".config/nvim/opt/tree-sitter-haskell".source = pkgs.fetchFromGitHub {
+  #   owner  = "tree-sitter";
+  #   repo   = "tree-sitter-haskell";
+  #   rev    = "98fc7f5";
+  #   sha256 = "BDvzmFIGABtkWEUbi74o3vPLsiwNWsQDNura867vYpU=";
+  # };
 
   # --------------------------------------------------
   # Xmonad + Xmobar

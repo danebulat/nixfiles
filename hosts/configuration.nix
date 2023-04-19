@@ -13,7 +13,10 @@ in
       ./hardware-configuration.nix
     ];
 
-  # Bootloader.
+  # -------------------------------------------------- 
+  # Bootloader
+  # -------------------------------------------------- 
+
   boot = {
     # Get latest kernel
     kernelPackages = pkgs.linuxPackages_latest; 
@@ -40,6 +43,33 @@ in
       };
     }; 
   };
+
+  # -------------------------------------------------- 
+  # Kernel Modules
+  # -------------------------------------------------- 
+
+  boot.initrd.availableKernelModules = [ 
+    "xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" 
+    "ehci_pci" "sdhci_pci" "uas"
+  ];
+
+  # Enable a normal user to mount /dev/sda1 
+  fileSystems."/home/${user}/media/sda1" = {
+    device = "/dev/sda1";
+    fsType = "auto";
+    options = [ "defaults" "user" "rw" "utf8" "noauto" "umask=000" ];
+  };
+
+  # Enable a normal user to mount /dev/sda2 
+  fileSystems."/home/${user}/media/sdb1" = {
+    device = "/dev/sdb1";
+    fsType = "auto";
+    options = [ "defaults" "user" "rw" "utf8" "noauto" "umask=000" ];
+  };
+
+  # -------------------------------------------------- 
+  # Networking
+  # -------------------------------------------------- 
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -122,14 +152,12 @@ in
   users.users.${user}= {
     isNormalUser = true;
     description = "dane";
-    extraGroups = [ "wheel" "video" "audio" "camera" "networkmanager" ];
+    extraGroups = [ "wheel" "video" "audio" "camera" "networkmanager" "backlighters" ];
     packages = with pkgs; [
 
       # Packages not available in Home Manager 
       # can be added here
       discord
-      firefox
-      lxappearance
 
       # Global Haskell 
       # cabal-install
@@ -137,9 +165,6 @@ in
       # (haskell-language-server.override { 
       #  supportedGhcVersions = [ "925" ];
       # })
-
-      # Global NodeJS
-      nodejs
     ];
     # initialPassword = "password";
   };
@@ -195,7 +220,14 @@ in
       options   = "--delete-older-than 14d";
     };
   };
-  
+
+  # --------------------------------------------------
+  # Hardware
+  # --------------------------------------------------
+
+  # Enable screen brightness control
+  hardware.acpilight.enable = true;
+
   # --------------------------------------------------
   # Fonts
   # --------------------------------------------------

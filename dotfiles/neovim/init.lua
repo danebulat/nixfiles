@@ -373,10 +373,9 @@ require('indent_blankline').setup({
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.haskell = {
   install_info = {
-    url = "~/.config/nvim/opt/tree-sitter-haskell",
-    files = {"src/parser.c", "src/scanner.c"}
-  },
-  -- filetype = "hs",
+    url = "/home/dane/.config/nvim/opt/tree-sitter-haskell",
+    files = {"src/parser.c", "src/scanner.c", "src/unicode.h"}
+  }
 }
 
 require('nvim-treesitter.configs').setup({
