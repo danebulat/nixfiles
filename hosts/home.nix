@@ -90,10 +90,6 @@ in
       volumeicon &
       cbatticon &
       #nm-applet &
-      
-      # Start xmobar 
-      xmobar -x 0 ~/.config/xmobar/.xmobarrc &
-      xmobar -x 1 ~/nixfiles/dotfiles/xmobar/xmobarrc-full-width &
     '';
   };
 
@@ -148,6 +144,33 @@ in
     terminal = "xterm-256color";
     # Set prefix key
     prefix = "C-x";
+  };
+
+  # --------------------------------------------------
+  # Bash
+  # --------------------------------------------------
+
+  programs.bash = {
+    enable = true;
+
+    # Extra commands that should be run in ~/.bashrc
+    bashrcExtra = ''
+    '';
+
+    # Shell aliases
+    shellAliases = 
+      let sysProfile = "/nix/var/nix/profiles/system";
+      in
+      {
+        nv = "nvim";
+        os-switch = "cd ~/nixfiles && sudo nixos-rebuild switch --flake .#dane";
+        os-conf = "cd ~/nixfiles";
+        os-open-home-conf = "nvim ~/nixfiles/hosts/home.nix";
+        os-upgrade = "cd ~/nixfiles && sudo nixos-rebuild switch --flake .#dane --upgrade";
+        os-generations = "sudo nix-env --list-generations --profile ${sysProfile}";
+        os-generations-keep-15 = "sudo nix-env --profile ${sysProfile} --delete-generations +15";
+        os-gc = "nix-collect-garbage";
+      };
   };
 
   # --------------------------------------------------

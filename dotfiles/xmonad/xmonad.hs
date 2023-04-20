@@ -18,6 +18,7 @@ import XMonad.Hooks.EwmhDesktops
 
 -- Xmobar
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Util.Loggers
@@ -111,15 +112,19 @@ myWorkspaces = ["1","2","3","4","5","6","7","9","10"]
 -- Main
 
 main :: IO ()
-main = xmonad
-     . ewmhFullscreen
-     . ewmh
-     -- replace xmobarPP with myXmobarPP for another style
-     . withEasySB (statusBarProp "xmobar ~/.config/xmobar/xmobarrc" (pure xmobarPP)) defToggleStrutsKey
-     $ myConfig
-     where
-       toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
-       toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
+main = do 
+  xmproc <- spawnPipe "xmobar -x 0 ~/.config/xmobar/.xmobarrc"
+  xmproc <- spawnPipe "xmobar -x 1 ~/nixfiles/dotfiles/xmobar/xmobarrc-full-width"
+  xmonad
+   . docks
+   . ewmhFullscreen
+   . ewmh
+   -- replace xmobarPP with myXmobarPP for another style
+   . withEasySB (statusBarProp "xmobar ~/.config/xmobar/xmobarrc" (pure xmobarPP)) defToggleStrutsKey
+   $ myConfig
+   where
+     toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
+     toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
 
 myConfig = def
      { modMask            = mod4Mask  -- Rebind Mod to the Super key
